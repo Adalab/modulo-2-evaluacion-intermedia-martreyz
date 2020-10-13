@@ -18,11 +18,12 @@ compare with random generated and add tries to the counter:*/
 
 let tries = 0;
 
- function getInputNumber (){
-   const numberInputValue = parseInt(numberInput.value);
-   console.log("El número introducido es: " + numberInputValue);
-   tries += 1;
-   triesText.innerHTML = "Número de intentos: " + tries;
+ function runGame (event){
+  tries += 1;
+  triesText.innerHTML = "Número de intentos: " + tries;
+  const numberInputValue = parseInt(numberInput.value);
+  console.log("El número introducido es: " + numberInputValue);
+   
    if(numberInputValue === randomNumber){
      hintText.innerHTML = "Has ganado campeona!!!";
    } else if (numberInputValue < randomNumber && numberInputValue >0 && numberInputValue <= 100){
@@ -34,4 +35,16 @@ let tries = 0;
    }
  }
 
- inputButton.addEventListener("click", getInputNumber);
+ inputButton.addEventListener("click", runGame);
+
+
+// Stops enter from refreshing the page and triggers button's click:
+
+function changeEnterAction (event){
+  if(event.keyCode === 13){
+    event.preventDefault();
+    inputButton.click();
+  }
+}
+
+numberInput.addEventListener("keydown",changeEnterAction);
