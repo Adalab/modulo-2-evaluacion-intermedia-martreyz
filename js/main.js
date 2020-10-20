@@ -18,9 +18,12 @@ compare with random generated and add tries to the counter:*/
 
 let tries = 0;
 
-function runGame(event) {
+function runCounter() {
   tries += 1;
   triesText.innerHTML = "Número de intentos: " + tries;
+}
+
+function runFeedback() {
   const numberInputValue = parseInt(numberInput.value);
   console.log("El número introducido es: " + numberInputValue);
 
@@ -41,6 +44,11 @@ function runGame(event) {
   } else if (numberInputValue < 1 || numberInputValue > 100) {
     hintText.innerHTML = "Pista: El número debe estar entre 1 y 100";
   }
+}
+
+function runGame(event) {
+  runCounter();
+  runFeedback();
 }
 
 inputButton.addEventListener("click", runGame);
