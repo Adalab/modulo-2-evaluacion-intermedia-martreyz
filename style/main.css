@@ -40,6 +40,7 @@
   border: none;
   outline: none;
   font-weight: bold;
+  margin-top: 5px;
 }
 
 .main__hint,

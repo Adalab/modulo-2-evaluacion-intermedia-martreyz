@@ -18,15 +18,9 @@ compare with random generated and add tries to the counter:*/
 
 let tries = 0;
 
-function runCounter() {
-  tries += 1;
-  triesText.innerHTML = "Número de intentos: " + tries;
-}
-
 function runFeedback() {
   const numberInputValue = parseInt(numberInput.value);
   console.log("El número introducido es: " + numberInputValue);
-
   if (numberInputValue === randomNumber) {
     hintText.innerHTML = "Has ganado campeona!!!";
   } else if (
@@ -41,8 +35,23 @@ function runFeedback() {
     numberInputValue <= 100
   ) {
     hintText.innerHTML = "Pista: Demasiado alto";
-  } else if (numberInputValue < 1 || numberInputValue > 100) {
-    hintText.innerHTML = "Pista: El número debe estar entre 1 y 100";
+  } else if (numberInputValue < 1) {
+    hintText.innerHTML = "Pista: El número debe ser mayor que 0";
+  } else if (numberInputValue > 100) {
+    hintText.innerHTML = "Pista: El número debe ser menor o igual que 100";
+  } else if (!numberInputValue) {
+    hintText.innerHTML =
+      "Pista: Introduce un número en el campo para empezar a jugar";
+  }
+}
+
+function runCounter() {
+  if (hintText.innerHTML === "Has ganado campeona!!!") {
+    tries += 0;
+    triesText.innerHTML = "Número de intentos: " + tries;
+  } else {
+    tries += 1;
+    triesText.innerHTML = "Número de intentos: " + tries;
   }
 }
 
@@ -63,3 +72,18 @@ function changeEnterAction(event) {
 }
 
 numberInput.addEventListener("keydown", changeEnterAction);
+
+//Reset button: cleans the input, the counter, writes the initial feedback and generates a new random number to play again!
+
+const resetButton = document.querySelector(".js-resetButton");
+
+function resetGame(event) {
+  hintText.innerHTML = "Pista: Escribe el número y dale a Prueba.";
+  tries = 0;
+  randomNumber = getRandomNumber(100);
+  console.log("Mi número aleatorio es " + randomNumber);
+  triesText.innerHTML = "Número de intentos: " + tries;
+  numberInput.value = "";
+}
+
+resetButton.addEventListener("click", resetGame);
